@@ -108,7 +108,6 @@ import HeroCurlBottom from '../assets/icons/hero-curl-bottom.svg'
 const heroVideo = ref<HTMLVideoElement | null>(null)
 
 const toggleVideo = () => {
-  console.log({ hero: heroVideo.value })
   if (heroVideo.value) {
     if (heroVideo.value.paused) {
       heroVideo.value.play()
