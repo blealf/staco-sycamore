@@ -18,7 +18,7 @@
             <NuxtLink
               :to="item.link"
             ><p
-              class="px-5 py-3 rounded-full text-sm"
+              class="px-5 py-3 rounded-full text-sm text-white font-semibold"
               :class="{ 'bg-[#C2C2C2] text-[#171717]': item.name === activeNav }"
             >{{ item.name }}</p>
             </NuxtLink>
