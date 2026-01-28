@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="">
     <MainHero />
+    <FeatureSection />
+    <BenefitsSection />
+    <MissionSection />
+    <WhySection />
+    <TestimonialSection />
   </div>
 </template>
-
-<script setup lang="ts">
-import MainHero from '~/components/MainHero.vue'
-</script>

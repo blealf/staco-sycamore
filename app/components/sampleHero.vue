@@ -146,39 +146,42 @@ const toggleVideo = () => {
 
 onMounted(() => {
   const words = ['Easier', 'Unbeatable', 'Accountable']
-  const textEl: HTMLElement | null = document.querySelector('#text-element')
-  const line = document.querySelector('#underline')
+  const textEl = document.querySelector<HTMLElement>('#text-element')
+  const line = document.querySelector<HTMLElement>('#underline')
+
+  if (!textEl || !line) return
 
   let index = 0
 
-  function startInfiniteLoop() {
-    if (!textEl || !line) return
-    const tl = gsap.timeline({
-      onComplete: () => {
-        // Move to next word and restart
-        index = (index + 1) % words.length
-        textEl.textContent = words[index] ?? ''
-        startInfiniteLoop()
-      }
-    })
+  // Initial text
+  textEl.textContent = words[index] ?? ''
 
-    tl.to(line, {
+  gsap.set(line, {
+    scaleX: 0,
+    transformOrigin: 'left center'
+  })
+
+  gsap.timeline({
+    repeat: -1,
+    onRepeat: () => {
+      index = (index + 1) % words.length
+      textEl.textContent = words[index] ?? ''
+    }
+  })
+    .to(line, {
       scaleX: 1,
       duration: 0.8,
       ease: 'power2.inOut'
     })
-      .to(line, {
-        opacity: 0,
-        duration: 0.2,
-        delay: 0.5 // Hold for a moment so user can read
-      })
-      .set(line, {
-        scaleX: 0,
-        opacity: 1
-      }) // Reset line for the next word
-  }
-
-  startInfiniteLoop()
+    .to(line, {
+      opacity: 0,
+      duration: 0.2,
+      delay: 0.5
+    })
+    .set(line, {
+      scaleX: 0,
+      opacity: 1
+    })
 })
 </script>
 

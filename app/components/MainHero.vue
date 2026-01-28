@@ -1,37 +1,43 @@
 <template>
-  <div class="w-full min-h-[75vh] bg-[#1F2334] overflow-hidden">
-    <div class="max-w-292.5 mx-auto h-full relative">
-      <div class="grid grid-cols-1 md:grid-cols-2 md:pt-[18vw] lg:pt-[12vw]">
-        <div class="">
-          <div class="md:text-4xl lg:text-6xl font-bold md:leading-15 lg:leading-20 text-white">
-            <h1>
+  <div class="w-full min-h-[73vh] bg-[#1F2334] overflow-hidden px-5 sm:px-10 xl:px-0">
+    <div class="max-w-292.5 mx-auto h-[73vh] relative">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:pt-[18vw] justify-center lg:pt-[14vw]">
+        <div class="flex flex-col gap-12">
+          <div class="mt-10 lg:mt-0">
+            <h1 class="text-white font-extrabold text-4xl lg:text-6xl leading-20 lg:leading-30">
               Financial Security
             </h1>
-            <h1 class="flex">
-              Made <div class="ml-2 w-fit container">
-                <span id="text-element text-mint">Easier</span>
-                <div id="underline" />
-              </div>
+
+            <h1 class="text-white font-bold text-4xl lg:text-6xl flex">
+              Made
+              <span class="ml-2 relative inline-block">
+                <span
+                  id="text-element"
+                  class="text-mint"
+                >
+                  Easier
+                </span>
+                <span id="underline" />
+              </span>
             </h1>
           </div>
 
-          <div class="mt-8 max-w-2xl text-lg text-white">
-            <p>
-              Staco is the dedicated platform for human management that helps to grow your startup business quickly
-            </p>
-          </div>
+          <p class="max-w-2xl text-lg text-white font-bold leading-9">
+            Staco is the dedicated platform for human management that helps
+            grow your startup business quickly.
+          </p>
 
-          <div>
+          <div class="flex gap-6 items-center">
             <UButton
-              class="group mt-8 rounded-full bg-[#44C486] hover:bg-mint text-white font-semibold
+              class="group rounded-full bg-[#44C486] hover:bg-mint text-white font-semibold
               overflow-hidden h-15 cursor-pointer
-              transition-all duration-300 ease-in-out hover:scale-105"
+              transition-all duration-300 ease-in-out"
             >
               <div
                 class="flex flex-col items-center gap-5
                   translate-y-3 group-hover:-translate-y-7
                   transition-transform duration-300 ease-in-out
-                  px-8 py-4"
+                  px-4 lg:px-8 py-4 font-bold"
               >
                 <p class="pt-3.5">
                   Get Started For Free
@@ -41,13 +47,27 @@
                 </p>
               </div>
             </UButton>
+            <div class="flex gap-3 items-center cursor-pointer group">
+              <p class="text-white font-semibold group-hover:text-[#44C486] transition-all duration-500 ease-in-out">
+                Let's talk
+              </p>
+              <div
+                class="h-7 w-7 bg-[#383B4A] group-hover:bg-[#44C486] rounded-full flex
+                justify-center items-center group-hover:-rotate-45 transition-all duration-500 ease-in-out"
+              >
+                <Icon
+                  name="heroicons:chevron-right-20-solid"
+                  class="text-lg text-white"
+                />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="relative">
+        <div class="mx-auto mt-10 md:mt-0 md:ml-auto relative max-w-115 max-h-85 w-full h-full">
           <video
             ref="heroVideo"
-            class="max-w-115 max-h-85 w-full h-full rounded-3xl object-cover"
+            class="max-w-115 max-h-85 w-full h-full rounded-3xl object-cover z-7"
             autoplay
             loop
             muted
@@ -57,21 +77,27 @@
               type="video/mp4"
             >
           </video>
-          <HeroCurl class="absolute -top-30 -left-20 text-[250px] text-transparent" />
-          <HeroCurlBottom class="absolute -bottom-65 -left-20 text-[250px] text-transparent" />
+          <HeroCurl class="hidden md:block absolute -top-30 lg:-top-50 -left-20 lg:-left-28 text-[250px] lg:text-[350px] text-transparent" />
+          <HeroCurlBottom
+            class="hidden md:block absolute -bottom-65 lg:-bottom-85 -left-20 lg:-left-38
+            text-[350px] lg:text-[500px] text-transparent z-2"
+          />
           <button
-            class="flex justify-center items-center bg-white h-12 w-12 rounded-full absolute bottom-4 right-4"
+            class="flex justify-center items-center bg-white h-12 w-12 rounded-full
+              absolute bottom-4 right-4 cursor-pointer"
             @click="toggleVideo"
           >
             <Icon
-              name="simple:play"
-              class="text-mint"
+              v-if="isPlaying"
+              name="material-symbols:pause-rounded"
+              class="text-xl text-[#44C486]"
               width="100"
               height="100"
             />
             <Icon
-              name="lucide:pause"
-              class="text-mint"
+              v-else
+              name="mynaui:play-solid"
+              class="text-xl text-[#44C486]"
               width="100"
               height="100"
             />
@@ -80,16 +106,13 @@
       </div>
 
       <!-- bg elements -->
-      <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full">
-        <div class="w-full h-full relative">
-          <HeroTopLeft class="absolute left-[6vw] top-[12vw] text-[#63a582] text-5xl" />
-          <HeroTopRight class="absolute right-[5vw] top-[12vw] text-[#63a582] text-5xl" />
-          <HeroMiddle class="absolute left-[25vw] top-[25vw] text-[#63a582] text-5xl" />
-          <HeroMiddleBottom class="absolute left-[25vw] bottom-[8vw] text-[#63a582] text-5xl" />
-          <HeroBottomLeft class="absolute left-[5vw] bottom-[8vw] text-[#63a582] text-5xl" />
-          <HeroBottomRight class="absolute right-[5vw] bottom-[8vw] text-[#63a582] text-5xl" />
-        </div>
-      </div>
+
+      <HeroTopLeft class="absolute left-[8vw] top-[10vw] text-[#63a582] text-5xl" />
+      <HeroTopRight class="absolute right-[5vw] top-[10vw] text-[#63a582] text-5xl" />
+      <HeroMiddle class="absolute left-[25vw] top-[20vw] text-[#63a582] text-5xl" />
+      <HeroMiddleBottom class="absolute left-[25vw] bottom-[18vw] text-[#63a582] text-5xl" />
+      <HeroBottomLeft class="absolute left-[5vw] bottom-[-10] text-[#63a582] text-2xl" />
+      <HeroBottomRight class="absolute right-1/2 bottom-20 text-[#63a582] text-5xl" />
     </div>
   </div>
 </template>
@@ -106,13 +129,16 @@ import HeroCurl from '../assets/icons/hero-curl.svg'
 import HeroCurlBottom from '../assets/icons/hero-curl-bottom.svg'
 
 const heroVideo = ref<HTMLVideoElement | null>(null)
+const isPlaying = ref(true)
 
 const toggleVideo = () => {
   if (heroVideo.value) {
     if (heroVideo.value.paused) {
       heroVideo.value.play()
+      isPlaying.value = true
     } else {
       heroVideo.value.pause()
+      isPlaying.value = false
     }
   }
 }
@@ -159,6 +185,12 @@ onMounted(() => {
 .container {
   display: inline-block;
   position: relative;
+}
+
+.play-btn {
+  svg {
+    fill: #63a582;
+  }
 }
 
 #underline {
