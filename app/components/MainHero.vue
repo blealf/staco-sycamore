@@ -65,9 +65,10 @@
         </div>
 
         <div class="mx-auto mt-10 md:mt-0 md:ml-auto relative max-w-115 max-h-85 w-full h-full">
+          <!-- Hero Video -->
           <video
             ref="heroVideo"
-            class="max-w-115 max-h-85 w-full h-full rounded-3xl object-cover z-7"
+            class="max-w-115 max-h-85 w-full h-full rounded-3xl object-cover z-10 relative"
             autoplay
             loop
             muted
@@ -77,29 +78,33 @@
               type="video/mp4"
             >
           </video>
-          <HeroCurl class="hidden md:block absolute -top-30 lg:-top-50 -left-20 lg:-left-28 text-[250px] lg:text-[350px] text-transparent" />
+
+          <!-- Top Curl -->
+          <HeroCurl
+            class="hidden md:block absolute -top-30 lg:-top-50 -left-20 lg:-left-28 text-[250px] lg:text-[350px] text-transparent z-11"
+          />
+
+          <!-- Bottom Curl (behind video) -->
           <HeroCurlBottom
             class="hidden md:block absolute -bottom-65 lg:-bottom-85 -left-20 lg:-left-38
-            text-[350px] lg:text-[500px] text-transparent z-2"
+           text-[350px] lg:text-[500px] text-transparent z-0"
           />
+
+          <!-- Play/Pause Button -->
           <button
             class="flex justify-center items-center bg-white h-12 w-12 rounded-full
-              absolute bottom-4 right-4 cursor-pointer"
+           absolute bottom-4 right-4 cursor-pointer z-20"
             @click="toggleVideo"
           >
             <Icon
               v-if="isPlaying"
               name="material-symbols:pause-rounded"
               class="text-xl text-[#44C486]"
-              width="100"
-              height="100"
             />
             <Icon
               v-else
               name="mynaui:play-solid"
               class="text-xl text-[#44C486]"
-              width="100"
-              height="100"
             />
           </button>
         </div>

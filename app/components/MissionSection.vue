@@ -39,7 +39,35 @@
 </template>
 
 <script setup lang="ts">
+import gsap from 'gsap'
 import FinancialFoundationsIcon from './icons/FinancialFoundationsIcon.vue'
+
+import { onMounted, ref } from 'vue'
+
+const containerRef = ref<HTMLElement>()
+const imageRef = ref<HTMLElement>()
+
+onMounted(() => {
+  if (!containerRef.value || !imageRef.value) return
+
+  // Set initial position
+  gsap.set(imageRef.value, { x: -200 }) // move left initially
+
+  const observer = new IntersectionObserver(([entry]) => {
+    console.log({ entry, imageRef: imageRef.value })
+    if (entry && entry.isIntersecting && imageRef.value) {
+      gsap.to(imageRef.value, {
+        x: 0,
+        duration: 2,
+        ease: 'power4.out'
+      })
+
+      observer.disconnect() // stop observing
+    }
+  }, { threshold: 0.3 }) // trigger when 30% visible
+
+  observer.observe(containerRef.value)
+})
 </script>
 
 <style scoped>

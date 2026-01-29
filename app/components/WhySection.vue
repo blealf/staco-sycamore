@@ -4,12 +4,10 @@
       <UCarousel
         ref="whyCarousel"
         v-slot="{ item }"
-        v-model="activeCarouselIndex"
         :items="opportunities"
         class="w-full mx-auto"
         loop
         wheel-gestures
-        :autoplay="{ delay: 7000 }"
       >
         <div>
           <p
@@ -62,8 +60,8 @@
 </template>
 
 <script setup lang="ts">
+
 const activeIndex = ref(0)
-const activeCarouselIndex = ref(0)
 const whyCarousel = ref()
 
 const opportunities = ref([
@@ -108,16 +106,38 @@ const opportunities = ref([
   }
 ])
 
+let timer: ReturnType<typeof setTimeout> | null = null
+
 const setActiveIndex = (val: number) => {
+  const api = whyCarousel.value?.emblaApi
+
+  if (!api) return
+
+  const autoplay = api.plugins().autoplay
+  if (autoplay) autoplay.stop()
+
+  api.scrollTo(val)
   activeIndex.value = val
+
+  if (timer) clearTimeout(timer)
+
+  timer = setTimeout(() => {
+    if (autoplay) autoplay.play()
+  }, 4000)
 }
 
-watch(activeIndex, (index) => {
-  whyCarousel.value?.emblaApi?.scrollTo(index)
-})
 
-watch(activeCarouselIndex, (index) => {
-  activeIndex.value = index
+onMounted(() => {
+  if (!whyCarousel.value) return
+  const api = whyCarousel.value.emblaApi
+  if (!api) return
+
+  const updateIndex = () => {
+    activeIndex.value = api.selectedScrollSnap()
+  }
+
+  api.on('select', updateIndex)
+  api.on('init', updateIndex)
 })
 </script>
 

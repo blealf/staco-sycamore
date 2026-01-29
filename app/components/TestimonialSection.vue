@@ -18,11 +18,10 @@
           <UCarousel
             ref="carousel"
             v-slot="{ item }"
-            v-model="activeCarouselIndex"
             class="w-full mx-auto"
             loop
             wheel-gestures
-            :autoplay="{ delay: 7000 }"
+            :autoplay="{ delay: 5000 }"
             :items="testimonials"
           >
             <div class="mt-20 px-10">
@@ -114,6 +113,16 @@ const logos = ref([
 ])
 
 const currentTestimony = computed(() => testimonials.value[activeCarouselIndex.value]!)
+
+onMounted(() => {
+  if (!carousel.value) return
+  const api = carousel.value.emblaApi
+  if (!api) return
+
+  api.on('select', () => {
+    activeCarouselIndex.value = api.selectedScrollSnap()
+  })
+})
 </script>
 
 <style scoped>
